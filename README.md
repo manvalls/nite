@@ -1,4 +1,6 @@
-# Nite [![Build Status][ci-img]][ci-url] [![Coverage Status][cover-img]][cover-url]
+# ![Nite](branding/logo.svg)
+
+[![Build Status][ci-img]][ci-url] [![Coverage Status][cover-img]][cover-url]
 
 Nite is a new MVC framework for the web. Docs, web page and logo are on the works and will be ready soon.
 
