@@ -26,10 +26,10 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.9899495"
-     inkscape:cx="283.26518"
-     inkscape:cy="112.77249"
+     inkscape:cx="87.800664"
+     inkscape:cy="110.75218"
      inkscape:document-units="px"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="text10483"
      showgrid="false"
      inkscape:window-width="1280"
      inkscape:window-height="969"
@@ -45,7 +45,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -593,18 +593,26 @@
          id="path9596"
          style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:22;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
     </g>
-    <text
-       xml:space="preserve"
+    <g
+       transform="scale(1.1231117,0.89038339)"
        style="font-style:normal;font-weight:normal;font-size:22.94796181px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="84.45549"
-       y="1146.731"
-       id="text10483"
-       sodipodi:linespacing="125%"
-       transform="scale(1.1231117,0.89038339)"><tspan
-         sodipodi:role="line"
-         id="tspan10485"
-         x="84.45549"
-         y="1146.731"
-         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:107.56855774px;font-family:Akaash;-inkscape-font-specification:'Akaash Medium'">Nite</tspan></text>
+       id="text10483">
+      <path
+         d="m 140.02558,1083.1773 0,70.5918 -10.1896,0 -36.451459,-57.1983 0,57.1983 -8.561365,0 0,-70.5918 9.716886,0 36.924168,57.776 0,-57.776 8.56137,0 z"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:107.56855774px;font-family:Akaash;-inkscape-font-specification:'Akaash Medium'"
+         id="path4244" />
+      <path
+         d="m 159.66944,1103.0312 0,50.7379 -8.03613,0 0,-50.7379 8.03613,0 z m 0,-19.8539 0,10.1896 -8.08865,0 0,-10.1896 8.08865,0 z"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:107.56855774px;font-family:Akaash;-inkscape-font-specification:'Akaash Medium'"
+         id="path4246" />
+      <path
+         d="m 188.61,1102.2434 0,6.618 -8.40379,0 0,34.7181 q 0,3.309 1.62824,4.0969 l 0.0525,0.053 q 0.94543,0.4727 2.8888,0.4727 2.67871,0 3.83423,-0.5252 l 0,6.8806 q -3.41404,0.6303 -6.56546,0.6303 -7.77351,0 -9.45427,-5.3049 -0.36766,-1.2081 -0.36766,-2.7313 l 0,-38.2897 -6.88061,0 0,-6.618 6.88061,0 0,-13.9188 7.9836,0 0,13.9188 8.40379,0 z"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:107.56855774px;font-family:Akaash;-inkscape-font-specification:'Akaash Medium'"
+         id="path4248" />
+      <path
+         d="m 235.40863,1129.083 -37.4494,0 q 0.10504,6.4079 2.15347,10.032 0.21009,0.4202 0.47271,0.7879 3.93928,5.9877 11.02998,6.5129 0.57776,0.053 1.20805,0.053 9.87445,0 13.39354,-10.1896 l 8.03613,0 q -1.83833,10.2422 -9.92698,14.7592 -5.04228,2.8888 -11.81784,2.8888 -11.39764,0 -17.59544,-8.1937 -5.40994,-7.0907 -5.40994,-18.6459 0,-13.236 7.03818,-20.7994 6.25032,-6.723 16.22982,-6.723 9.40175,0 15.65207,5.9877 3.20394,3.0989 4.8847,7.3533 2.10095,5.4099 2.10095,16.1773 z m -37.34436,-6.5655 28.5729,0 q 0.0525,-0.2626 0.0525,-0.6303 0,-6.5654 -4.41199,-10.9774 -3.9918,-3.9393 -9.55931,-3.9393 -7.24827,0 -11.34512,5.7251 -2.83628,3.9918 -3.309,9.8219 z"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:107.56855774px;font-family:Akaash;-inkscape-font-specification:'Akaash Medium'"
+         id="path4250" />
+    </g>
   </g>
 </svg>
