@@ -5,7 +5,10 @@ module.exports = function(getter,callback,options = {}){
 
 function controller(nite,ctx){
 
-  if(!nite.isVar(ctx.getter)) ctx.getter = nite.var(ctx.getter);
+  if(!nite.isVar(ctx.getter)){
+    ctx.getter = nite.var(ctx.getter);
+    ctx.getter.freeze();
+  }
 
   nite.add(
     ctx.getter.watch(
