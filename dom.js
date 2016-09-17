@@ -35,7 +35,9 @@ class DOMNite extends Nite{
       case 'function':
 
         this.render(
-          walk(tree,args || [this[node]],thatArg || this[node])
+          walk(tree,args || [this[node]],thatArg || this[node]),
+          args,
+          thatArg
         );
 
         break;
@@ -44,8 +46,13 @@ class DOMNite extends Nite{
 
         if(tree instanceof Array){
 
-          if(tree[0] === undefined){
-            for(i = 1;i < tree.length;i++) this.render(tree[i]);
+          if(tree[0] == null){
+            for(i = 1;i < tree.length;i++) this.render(tree[i],args,thatArg);
+            return;
+          }
+
+          if(tree[0] instanceof Object){
+            this.render(tree[0],tree.slice(1),thatArg);
             return;
           }
 
@@ -55,7 +62,7 @@ class DOMNite extends Nite{
 
           this.add(nite);
           nite.listen(this[node].removeChild,[n],this[node]);
-          for(i = 1;i < tree.length;i++) nite.render(tree[i]);
+          for(i = 1;i < tree.length;i++) nite.render(tree[i],args,thatArg);
 
           return;
         }
@@ -63,13 +70,12 @@ class DOMNite extends Nite{
         if(typeof tree.controller == 'function'){
           child = this.child();
 
-          try{ ctrl = new tree.controller(child,tree); }
+          try{ ctrl = new tree.controller(child,tree,...(args || [])); }
           catch(e){
             ctrl = {};
             setTimeout(throwError,0,e);
           }
 
-          if(typeof tree.view == 'function') child.render(tree.view(ctrl,tree,child.std));
           return;
         }
 
@@ -77,7 +83,7 @@ class DOMNite extends Nite{
 
         if(Yielded.is(tree)){
           child = this.child();
-          tree.listen(renderYd,[child]);
+          tree.listen(renderYd,[child,args,thatArg]);
           return;
         }
 
@@ -85,7 +91,7 @@ class DOMNite extends Nite{
 
           child = this.child();
           child.add(
-            tree.watch(gWatcher,child,{previous: child.child()})
+            tree.watch(gWatcher,child,args,thatArg,{previous: child.child()})
           );
 
           return;
@@ -180,14 +186,14 @@ class Child extends DOMNite{
 
 // Listeners
 
-function renderYd(child){
-  child.render(this.value);
+function renderYd(child,args,thatArg){
+  child.render(this.value,args,thatArg);
 }
 
-function gWatcher(v,ov,d,parent,ctx){
+function gWatcher(v,ov,d,parent,args,thatArg,ctx){
   ctx.previous.detach();
   ctx.previous = parent.child();
-  ctx.previous.render(v);
+  ctx.previous.render(v,args,thatArg);
 }
 
 function throwError(e){

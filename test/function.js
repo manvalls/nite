@@ -25,4 +25,12 @@ t('Function',function*(){
   assert.strictEqual(d.innerHTML,'');
   yield wait(10);
   assert.strictEqual(d.innerHTML,'<span>hi</span>');
+
+  d = document.createElement('div');
+  nite = Nite(d);
+  nite.render([function(one,two,three){
+    return [,one,two,three];
+  },1,2,3]);
+
+  assert.strictEqual(d.innerHTML,'123');
 });
