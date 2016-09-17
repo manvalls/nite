@@ -17,7 +17,7 @@ class DOMNite extends Nite{
   }
 
   render(tree,args,thatArg){
-    var document,i,n,nite,child,ctrl;
+    var document,i,n,nite,child;
 
     if(this.done || tree === null) return;
     document = this[node].ownerDocument;
@@ -70,12 +70,8 @@ class DOMNite extends Nite{
         if(typeof tree.controller == 'function'){
           child = this.child();
 
-          try{ ctrl = new tree.controller(child,tree,...(args || [])); }
-          catch(e){
-            ctrl = {};
-            setTimeout(throwError,0,e);
-          }
-
+          try{ new tree.controller(child,tree,...(args || [])); }
+          catch(e){ setTimeout(throwError,0,e); }
           return;
         }
 
