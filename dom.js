@@ -47,7 +47,7 @@ class DOMNite extends Nite{
         if(tree instanceof Array){
 
           if(tree[0] == null){
-            for(i = 1;i < tree.length;i++) this.render(tree[i],args,thatArg);
+            for(i = 1;i < tree.length;i++) this.render(tree[i],[this[node]],this[node]);
             return;
           }
 
@@ -62,7 +62,7 @@ class DOMNite extends Nite{
 
           this.add(nite);
           nite.listen(this[node].removeChild,[n],this[node]);
-          for(i = 1;i < tree.length;i++) nite.render(tree[i],args,thatArg);
+          for(i = 1;i < tree.length;i++) nite.render(tree[i],[nite[node]],nite[node]);
 
           return;
         }
