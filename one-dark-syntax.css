@@ -4,6 +4,8 @@
   color: #abb2bf;
   padding: 20px;
   margin: 0px;
+  white-space: pre-wrap;
+  word-break: break-word;
 }
 .editor .line.cursor-line,
 .line.cursor-line {
