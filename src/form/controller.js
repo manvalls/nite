@@ -1,6 +1,6 @@
 module.exports = class{
 
-  constructor(nite,{view}){
+  constructor( nite, { view } ){
 
     nite.vars({
       title: 'Mx.',
@@ -8,7 +8,7 @@ module.exports = class{
     },this);
 
     this.titles = ['Mx.','Mr.','Ms.'];
-    nite.render(view,[this,nite.std]);
+    nite.render( view(this, nite.std) );
 
   }
 

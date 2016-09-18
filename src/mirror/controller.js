@@ -1,6 +1,6 @@
 module.exports = class{
 
-  constructor(nite,{view}){
+  constructor( nite, { view } ){
 
     nite.vars({
       text: ''

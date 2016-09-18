@@ -2,7 +2,7 @@ var Highlights = require('highlights');
 var highlighter = new Highlights();
 var path = require('path');
 var fs = require('fs');
-var folders = ['form','mirror'];
+var folders = ['form','mirror','imgur'];
 var folder,files,file;
 
 highlighter.requireGrammarsSync({

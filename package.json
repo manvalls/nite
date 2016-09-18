@@ -11,11 +11,11 @@
     "browserify": "^13.1.0",
     "highlights": "^1.4.1",
     "http-server": "^0.9.0",
+    "language-babel": "gandm/language-babel",
     "nite": "^2.0.2",
     "uglifyify": "^3.0.3",
     "watchify": "^3.7.0",
-    "whatwg-fetch": "^1.0.0",
-    "language-babel": "gandm/language-babel"
+    "whatwg-fetch": "^1.0.0"
   },
   "scripts": {
     "start": "http-server",

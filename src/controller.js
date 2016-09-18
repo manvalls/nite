@@ -23,6 +23,21 @@ module.exports = class{
       },
       {
         result: {
+          controller: require('./imgur/controller'),
+          view: require('./imgur/view'),
+          clientID: 'e067354667a0505'
+        },
+        code: {
+          selected: nite.var('view.js'),
+          files: {
+            'view.js': require('fs').readFileSync(__dirname + '/imgur/view.html','utf8'),
+            'controller.js': require('fs').readFileSync(__dirname + '/imgur/controller.html','utf8'),
+            'index.js': require('fs').readFileSync(__dirname + '/imgur/index.html','utf8')
+          }
+        }
+      },
+      {
+        result: {
           controller: require('./form/controller'),
           view: require('./form/view')
         },
