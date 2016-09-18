@@ -19,8 +19,8 @@
   },
   "scripts": {
     "start": "http-server",
-    "build": "browserify main.js -g babelify -g brfs -g uglifyify --outfile build/main.js",
-    "watch": "watchify main.js -g babelify -g brfs -g uglifyify --outfile build/main.js"
+    "build": "browserify main.js -g babelify -g brfs -g uglifyify --outfile dist/main.js",
+    "watch": "watchify main.js -g babelify -g brfs -g uglifyify --outfile dist/main.js"
   },
   "repository": {
     "type": "git",
