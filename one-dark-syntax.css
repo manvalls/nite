@@ -1,85 +1,84 @@
 
-.editor,
-:host {
+.editor{
   background-color: #282c34;
   color: #abb2bf;
   padding: 20px;
   margin: 0px;
 }
 .editor .line.cursor-line,
-:host .line.cursor-line {
+.line.cursor-line {
   background-color: rgba(153, 187, 255, 0.04);
 }
 .editor .invisible,
-:host .invisible {
+.invisible {
   color: #abb2bf;
 }
 .editor .cursor,
-:host .cursor {
+.cursor {
   border-left: 2px solid #528bff;
 }
 .editor .selection .region,
-:host .selection .region {
+.selection .region {
   background-color: #3e4451;
 }
 .editor .bracket-matcher .region,
-:host .bracket-matcher .region {
+.bracket-matcher .region {
   border-bottom: 1px solid #528bff;
   box-sizing: border-box;
 }
 .editor .invisible-character,
-:host .invisible-character {
+.invisible-character {
   color: rgba(171, 178, 191, 0.15);
 }
 .editor .indent-guide,
-:host .indent-guide {
+.indent-guide {
   color: rgba(171, 178, 191, 0.15);
 }
 .editor .wrap-guide,
-:host .wrap-guide {
+.wrap-guide {
   background-color: rgba(171, 178, 191, 0.15);
 }
 .editor .find-result .region.region.region,
-:host .find-result .region.region.region,
+.find-result .region.region.region,
 .editor .current-result .region.region.region,
-:host .current-result .region.region.region {
+.current-result .region.region.region {
   border-radius: 2px;
   background-color: rgba(82, 139, 255, 0.24);
   transition: border-color 0.4s;
 }
 .editor .find-result .region.region.region,
-:host .find-result .region.region.region {
+.find-result .region.region.region {
   border: 2px solid transparent;
 }
 .editor .current-result .region.region.region,
-:host .current-result .region.region.region {
+.current-result .region.region.region {
   border: 2px solid #528bff;
   transition-duration: .1s;
 }
 .editor .gutter .line-number,
-:host .gutter .line-number {
+.gutter .line-number {
   color: #636d83;
   -webkit-font-smoothing: antialiased;
 }
 .editor .gutter .line-number.cursor-line,
-:host .gutter .line-number.cursor-line {
+.gutter .line-number.cursor-line {
   color: #abb2bf;
   background-color: #2c313a;
 }
 .editor .gutter .line-number.cursor-line-no-selection,
-:host .gutter .line-number.cursor-line-no-selection {
+.gutter .line-number.cursor-line-no-selection {
   background-color: transparent;
 }
 .editor .gutter .line-number .icon-right,
-:host .gutter .line-number .icon-right {
+.gutter .line-number .icon-right {
   color: #abb2bf;
 }
 .editor .gutter:not(.git-diff-icon) .line-number.git-line-removed.git-line-removed::before,
-:host .gutter:not(.git-diff-icon) .line-number.git-line-removed.git-line-removed::before {
+.gutter:not(.git-diff-icon) .line-number.git-line-removed.git-line-removed::before {
   bottom: -3px;
 }
 .editor .gutter:not(.git-diff-icon) .line-number.git-line-removed::after,
-:host .gutter:not(.git-diff-icon) .line-number.git-line-removed::after {
+.gutter:not(.git-diff-icon) .line-number.git-line-removed::after {
   content: "";
   position: absolute;
   left: 0px;
@@ -89,11 +88,11 @@
   pointer-events: none;
 }
 .editor .gutter .line-number.folded,
-:host .gutter .line-number.folded,
+.gutter .line-number.folded,
 .editor .gutter .line-number:after,
-:host .gutter .line-number:after,
+.gutter .line-number:after,
 .editor .fold-marker:after,
-:host .fold-marker:after {
+.fold-marker:after {
   color: #abb2bf;
 }
 .comment {

@@ -9,6 +9,20 @@ module.exports = class{
     this.samples = [
       {
         result: {
+          controller: require('./mirror/controller'),
+          view: require('./mirror/view')
+        },
+        code: {
+          selected: nite.var('view.js'),
+          files: {
+            'view.js': require('fs').readFileSync(__dirname + '/mirror/view.html','utf8'),
+            'controller.js': require('fs').readFileSync(__dirname + '/mirror/controller.html','utf8'),
+            'index.js': require('fs').readFileSync(__dirname + '/mirror/index.html','utf8')
+          }
+        }
+      },
+      {
+        result: {
           controller: require('./form/controller'),
           view: require('./form/view')
         },
