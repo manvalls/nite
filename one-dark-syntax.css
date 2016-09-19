@@ -5,6 +5,7 @@
   padding: 20px;
   margin: 0px;
   white-space: pre-wrap;
+  word-break: break-all;
   word-break: break-word;
 }
 .editor .line.cursor-line,

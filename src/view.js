@@ -93,6 +93,12 @@ module.exports = (ctrl, { forEach, when }) =>
                 padding: '20px',
                 border: '1px solid #cacaca',
                 backgroundColor: 'rgb(244, 244, 244)',
+                wordBreak: 'break-all'
+              }
+            }}
+
+            {{
+              style: {
                 wordBreak: 'break-word'
               }
             }}
