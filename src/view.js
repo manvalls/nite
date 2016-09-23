@@ -22,18 +22,14 @@ module.exports = (ctrl, { forEach, when }) =>
 
       {{
         style: {
-          position: 'relative',
-          top: ctrl.scrollTop.mb(0.7).math('round').pl('px'),
-          transition: 'all 500ms cubic-bezier(0, 0, 0, 1)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
           height: '100%',
-          backgroundColor: 'rgb(243, 236, 222)'
+          backgroundColor: 'rgb(243, 236, 222)',
+          backgroundImage: 'url("branding/logo.svg")',
+          backgroundPosition: 'center 35px',
+          backgroundAttachment: 'fixed',
+          backgroundRepeat: 'no-repeat'
         }
       }}
-
-      <img src="branding/logo.svg"/>
 
     </div>
   </div>
