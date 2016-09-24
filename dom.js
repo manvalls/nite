@@ -44,6 +44,11 @@ class DOMNite extends Nite{
 
       case 'object':
 
+        if(global.Node && tree instanceof Node){
+          this[node].insertBefore(tree,this[end]);
+          return;
+        }
+
         if(tree instanceof Array){
 
           if(tree[0] == null){

@@ -11,12 +11,13 @@ t('Element creation and appending',function(){
     ['div',
       {style: {color: 'green'}},
       'Hi again!'
-    ]
+    ],
+    document.createElement('span')
   ];
 
   document.body.innerHTML = '';
   Nite(document.body).render(e);
 
-  assert.strictEqual(document.body.innerHTML,'Hello world!<div style="color: green;">Hi again!</div>');
+  assert.strictEqual(document.body.innerHTML,'Hello world!<div style="color: green;">Hi again!</div><span></span>');
   assert.strictEqual(document.body.style.color,'black');
 });
