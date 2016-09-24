@@ -6,6 +6,7 @@ var Detacher = require('detacher'),
       on: require('./std/on'),
       once: require('./std/once'),
       when: require('./std/when'),
+      animate: require('./std/animate'),
       forEach: require('./std/forEach')
     });
 

@@ -6,3 +6,4 @@ require('./on');
 require('./once');
 require('./when');
 require('./forEach');
+require('./animate');
