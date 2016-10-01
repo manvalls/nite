@@ -119,12 +119,10 @@ class DOMNite extends Nite{
 
     ret = new Child(this[node],s,e,this);
 
-    if(!this.done){
-      this[node].insertBefore(s,this[end]);
-      this[node].insertBefore(e,this[end]);
-      ret.listen(this[node].removeChild,[s],this[node]);
-      ret.listen(this[node].removeChild,[e],this[node]);
-    }
+    this[node].insertBefore(s,this[end]);
+    this[node].insertBefore(e,this[end]);
+    ret.listen(this[node].removeChild,[s],this[node]);
+    ret.listen(this[node].removeChild,[e],this[node]);
 
     return ret;
   }
