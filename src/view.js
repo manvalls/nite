@@ -17,13 +17,12 @@ module.exports = (ctrl, { forEach, when }) =>
     // Logo
   }
 
-  <div style={{height: '200px',overflow: 'hidden',backgroundColor: 'rgb(243, 236, 222)'}}>
+  <div style={{height: '200px',overflow: 'hidden',background: `url('dist/bg.png')`}}>
     <div>
 
       {{
         style: {
           height: '100%',
-          backgroundColor: 'rgb(243, 236, 222)',
           backgroundImage: 'url("branding/logo.svg")',
           backgroundPosition: 'center 35px',
           backgroundAttachment: 'fixed',
