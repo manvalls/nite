@@ -7,102 +7,20 @@ var walk = require('y-walk'),
     node = Symbol(),
     start = Symbol(),
     end = Symbol(),
-    parent = Symbol();
+    parent = Symbol(),
+    dataParent = Symbol(),
+    map = Symbol();
 
 class DOMNite extends Nite{
 
   constructor(n){
     super();
     this[node] = n;
+    this[map] = new WeakMap();
   }
 
   render(tree,args,thatArg){
-    var document,i,n,nite,child;
-
-    if(this.done || tree === null) return;
-    document = this[node].ownerDocument;
-
-    switch(typeof tree){
-
-      case 'number':
-        tree += '';
-      case 'string':
-        n = document.createTextNode(tree);
-        this[node].insertBefore(n,this[end]);
-        this.listen(this[node].removeChild,[n],this[node]);
-        break;
-
-      case 'function':
-
-        this.render(
-          walk(tree,args || [this[node]],thatArg || this[node]),
-          args,
-          thatArg
-        );
-
-        break;
-
-      case 'object':
-
-        if(global.Node && tree instanceof Node){
-          this[node].insertBefore(tree,this[end]);
-          return;
-        }
-
-        if(tree instanceof Array){
-
-          if(tree[0] == null){
-            for(i = 1;i < tree.length;i++) this.render(tree[i],[this[node]],this[node]);
-            return;
-          }
-
-          if(tree[0] instanceof Object){
-            this.render(tree[0],tree.slice(1),thatArg);
-            return;
-          }
-
-          n = document.createElement(tree[0]);
-          this[node].insertBefore(n,this[end]);
-          nite = new DOMNite(n);
-
-          this.add(nite);
-          nite.listen(this[node].removeChild,[n],this[node]);
-          for(i = 1;i < tree.length;i++) nite.render(tree[i],[nite[node]],nite[node]);
-
-          return;
-        }
-
-        if(typeof tree.controller == 'function'){
-          child = this.child();
-
-          try{ new tree.controller(child,tree,...(args || [])); }
-          catch(e){ setTimeout(throwError,0,e); }
-          return;
-        }
-
-        if(typeof tree.then == 'function') tree = Yielded.get(tree);
-
-        if(Yielded.is(tree)){
-          child = this.child();
-          tree.listen(renderYd,[child,args,thatArg]);
-          return;
-        }
-
-        if(Getter.is(tree)){
-
-          child = this.child();
-          child.add(
-            tree.watch(gWatcher,child,args,thatArg,{previous: child.child()})
-          );
-
-          return;
-        }
-
-        this[node][apply](tree,this);
-        break;
-
-    }
-
+    render(this,tree,args,thatArg,this);
   }
 
   child(){
@@ -127,6 +45,25 @@ class DOMNite extends Nite{
     return ret;
   }
 
+  set(key,value){
+    return this[map].set(key,value);
+  }
+
+  get(key){
+    if(this[map].has(key)) return this[map].get(key);
+    if(this[dataParent]) return this[dataParent].get(key);
+  }
+
+  has(key){
+    if(this[map].has(key)) return true;
+    if(this[dataParent]) return this[dataParent].has(key);
+    return false;
+  }
+
+  delete(key){
+    return this[map].delete(key);
+  }
+
   get node(){
     return this[node];
   }
@@ -141,6 +78,7 @@ class Child extends DOMNite{
     this[start] = s;
     this[end] = e;
     this[parent] = p;
+    this[dataParent] = p;
   }
 
   after(){
@@ -179,6 +117,106 @@ class Child extends DOMNite{
 
     this[parent].add(ret);
     return ret;
+  }
+
+}
+
+// Render
+
+function render(that,tree,args,thatArg,parent){
+  var document,i,n,nite,child;
+
+  if(that.done || tree === null) return;
+  document = that[node].ownerDocument;
+
+  switch(typeof tree){
+
+    case 'number':
+      tree += '';
+    case 'string':
+      n = document.createTextNode(tree);
+      that[node].insertBefore(n,that[end]);
+      that.listen(that[node].removeChild,[n],that[node]);
+      break;
+
+    case 'function':
+
+      render(
+        that,
+        walk(tree,args || [that[node]],thatArg || that[node]),
+        args,
+        thatArg,
+        parent
+      );
+
+      break;
+
+    case 'object':
+
+      if(global.Node && tree instanceof Node){
+        that[node].insertBefore(tree,that[end]);
+        return;
+      }
+
+      if(tree instanceof Array){
+
+        if(tree[0] == null){
+          for(i = 1;i < tree.length;i++) render(that,tree[i],[that[node]],that[node],parent);
+          return;
+        }
+
+        if(tree[0] instanceof Object){
+          render(that,tree[0],tree.slice(1),thatArg,parent);
+          return;
+        }
+
+        n = document.createElement(tree[0]);
+        that[node].insertBefore(n,that[end]);
+        nite = new DOMNite(n);
+
+        that.listen(that[node].removeChild,[n],that[node]);
+        for(i = 1;i < tree.length;i++) render(nite,tree[i],[nite[node]],nite[node],parent);
+
+        return;
+      }
+
+      if(typeof tree.controller == 'function'){
+        child = that.free();
+        child[dataParent] = parent;
+        parent.add(child);
+
+        try{ new tree.controller(child,tree,...(args || [])); }
+        catch(e){ setTimeout(throwError,0,e); }
+        return;
+      }
+
+      if(typeof tree.then == 'function') tree = Yielded.get(tree);
+
+      if(Yielded.is(tree)){
+        child = that.free();
+        child[dataParent] = parent;
+        parent.add(child);
+
+        tree.listen(renderYd,[child,args,thatArg]);
+        return;
+      }
+
+      if(Getter.is(tree)){
+
+        child = that.free();
+        child[dataParent] = parent;
+        parent.add(child);
+
+        child.add(
+          tree.watch(gWatcher,child,args,thatArg,{previous: child.child()})
+        );
+
+        return;
+      }
+
+      that[node][apply](tree,that);
+      break;
+
   }
 
 }

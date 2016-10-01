@@ -7,3 +7,4 @@ require('./once');
 require('./when');
 require('./forEach');
 require('./animate');
+require('./map');
