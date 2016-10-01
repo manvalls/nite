@@ -1,9 +1,9 @@
-module.exports = ({ text }) =>
+module.exports = ({ text, mirror }) =>
 
 <div style={{textAlign: 'center'}}>
   <input placeholder="Type something" value={text}/>
   <hr/>
   <div>
-    {text} | { text.to( text => text.split('').reverse().join('') ) }
+    {text} | { text.to(mirror) }
   </div>
 </div>

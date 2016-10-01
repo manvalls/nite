@@ -1,8 +1,10 @@
 module.exports = function( nite, { view } ){
 
-  nite.vars({
-    text: ''
-  },this);
+  this.text = nite.var();
+  
+  this.mirror = function(text){
+    return text.split('').reverse().join('');
+  };
 
   nite.render( view(this) );
 
