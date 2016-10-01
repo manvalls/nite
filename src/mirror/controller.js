@@ -1,13 +1,9 @@
-module.exports = class{
+module.exports = function( nite, { view } ){
 
-  constructor( nite, { view } ){
+  nite.vars({
+    text: ''
+  },this);
 
-    nite.vars({
-      text: ''
-    },this);
-
-    nite.render( view(this) );
-
-  }
+  nite.render( view(this) );
 
 };

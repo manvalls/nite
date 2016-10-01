@@ -1,15 +1,11 @@
-module.exports = class{
+module.exports = function( nite, { view } ){
 
-  constructor( nite, { view } ){
+  nite.vars({
+    title: 'Mx.',
+    name: ''
+  },this);
 
-    nite.vars({
-      title: 'Mx.',
-      name: ''
-    },this);
-
-    this.titles = ['Mx.','Mr.','Ms.'];
-    nite.render( view(this, nite.std) );
-
-  }
+  this.titles = ['Mx.','Mr.','Ms.'];
+  nite.render( view(this, nite.std) );
 
 };

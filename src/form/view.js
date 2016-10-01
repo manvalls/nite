@@ -18,7 +18,6 @@ module.exports = ({ title, name, titles }, { forEach }) =>
     }}
 
   </form>
-  <h3>
-    Hi {title} {name}!
-  </h3>
+  <hr/>
+  Hi {title} {name}!
 </div>
