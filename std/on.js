@@ -22,7 +22,7 @@ function controller(nite,{event,handler,useCapture,getNode}){
 }
 
 function handleEvent(e){
-  this.nite.render(this.handler,[e],this.getNode(this.nite));
+  this.nite.render(this.handler,[e],this.nite.node);
 }
 
 // Node getters

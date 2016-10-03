@@ -23,7 +23,7 @@ function controller(nite,{event,handler,useCapture,getNode}){
 
 function handleEvent(e){
   events.detach(this.getNode(this.nite),this.event,this,this.useCapture);
-  this.nite.render(this.handler,[e],this.getNode(this.nite));
+  this.nite.render(this.handler,[e],this.nite.node);
 }
 
 // Node getters

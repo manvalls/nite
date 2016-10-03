@@ -30,6 +30,7 @@ t('once',function(){
 
   d.click();
   assert.strictEqual(n,3);
+  assert.strictEqual(that,d);
   assert.strictEqual(event.type,'click');
 
   nite.render(
@@ -42,6 +43,7 @@ t('once',function(){
 
   d.click();
   assert.strictEqual(n,4);
+  assert.strictEqual(that,d);
   assert.strictEqual(event.type,'click');
 
   nite.render(

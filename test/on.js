@@ -30,10 +30,12 @@ t('on',function(){
 
   d.click();
   assert.strictEqual(n,3);
+  assert.strictEqual(that,d);
   assert.strictEqual(event.type,'click');
 
   d.click();
   assert.strictEqual(n,6);
+  assert.strictEqual(that,d);
   assert.strictEqual(event.type,'click');
 
   nite.detach();
