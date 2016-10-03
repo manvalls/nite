@@ -1,16 +1,42 @@
+var events = require('./utils/events');
 
 module.exports = function(event,handler,useCapture){
-  return {controller,event,handler,useCapture};
+  return {controller,event,handler,useCapture,getNode};
 };
 
-function controller(nite,{event,handler,useCapture}){
-  var listener = {handleEvent,handler,nite,event,useCapture};
+module.exports.document = function(event,handler,useCapture){
+  return {controller,event,handler,useCapture,getNode: getDocument};
+};
 
-  nite.node.addEventListener(event,listener,useCapture || false);
-  nite.listen(nite.node.removeEventListener,[event,listener,useCapture || false],nite.node);
+module.exports.window = function(event,handler,useCapture){
+  return {controller,event,handler,useCapture,getNode: getWindow};
+};
+
+// Methods
+
+function controller(nite,{event,handler,useCapture,getNode}){
+  var listener = {handleEvent,handler,nite,event,useCapture,getNode};
+
+  events.attach(getNode(nite),event,listener,useCapture);
+  nite.listen(events.detach,[getNode(nite),event,listener,useCapture]);
 }
 
 function handleEvent(e){
-  this.nite.node.removeEventListener(this.event,this,this.useCapture || false);
-  this.nite.render(this.handler,[e],this.nite.node);
+  events.detach(this.getNode(this.nite),this.event,this,this.useCapture);
+  this.nite.render(this.handler,[e],this.getNode(this.nite));
+}
+
+// Node getters
+
+function getNode(nite){
+  return nite.node;
+}
+
+function getDocument(nite){
+  return nite.node.ownerDocument;
+}
+
+function getWindow(nite){
+  var document = getDocument(nite);
+  return document.defaultView || document.parentWindow;
 }

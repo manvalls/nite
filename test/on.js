@@ -8,26 +8,36 @@ t('on',function(){
       n = 0,
       that,event;
 
-  nite.render(
+  nite.render([,
     nite.std.on('click',function(e){
       that = this;
       event = e;
       n++;
+    }),
+    nite.std.on.document('click',function(e){
+      that = this;
+      event = e;
+      n++;
+    }),
+    nite.std.on.window('click',function(e){
+      that = this;
+      event = e;
+      n++;
     })
-  );
+  ]);
+
+  document.body.appendChild(d);
 
   d.click();
-  assert.strictEqual(n,1);
-  assert.strictEqual(that,d);
+  assert.strictEqual(n,3);
   assert.strictEqual(event.type,'click');
 
   d.click();
-  assert.strictEqual(n,2);
-  assert.strictEqual(that,d);
+  assert.strictEqual(n,6);
   assert.strictEqual(event.type,'click');
 
   nite.detach();
   d.click();
-  assert.strictEqual(n,2);
+  assert.strictEqual(n,6);
 
 });
