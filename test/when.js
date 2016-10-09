@@ -26,4 +26,25 @@ t('when',function(){
   child.detach();
   test.value = 'bar';
   assert.strictEqual(s.innerHTML,'');
+
+  s = document.createElement('div');
+  child = Nite(s).child();
+  child.render(
+    child.std.when(test.is(1),[document.createElement('span'),'one'])
+    .elseWhen(test.is(2),[document.createElement('span'),'two'])
+    .else(document.createElement('span'))
+  );
+
+  assert.strictEqual(s.innerHTML,'<span></span>');
+
+  test.value = 1;
+  assert.strictEqual(s.innerHTML,'<span>one</span>');
+
+  test.value = 2;
+  assert.strictEqual(s.innerHTML,'<span>two</span>');
+
+  child.detach();
+  test.value = 'bar';
+  assert.strictEqual(s.innerHTML,'');
+
 });

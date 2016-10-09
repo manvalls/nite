@@ -153,15 +153,40 @@ function render(that,tree,args,thatArg,parent){
 
     case 'object':
 
+      if(typeof tree.controller == 'function'){
+        child = that.free();
+        child[dataParent] = parent;
+        parent.add(child);
+
+        try{ new tree.controller(child,tree,...(args || [])); }
+        catch(e){ setTimeout(throwError,0,e); }
+        return;
+      }
+
+      if(typeof tree.then == 'function') tree = Yielded.get(tree);
+
+      if(tree.constructor == Object){
+        that[node][apply](tree,that);
+        return;
+      }
+
       if(global.Node && tree instanceof Node){
-        that[node].insertBefore(tree,that[end]);
+
+        if(!tree.parentNode){
+          that[node].insertBefore(tree,that[end]);
+          nite = new DOMNite(tree);
+
+          that.listen(that[node].removeChild,[tree],that[node]);
+          for(child of (args || [])) render(nite,child,null,null,parent);
+        }
+
         return;
       }
 
       if(tree instanceof Array){
 
         if(tree[0] == null){
-          for(i = 1;i < tree.length;i++) render(that,tree[i],[that[node]],that[node],parent);
+          for(i = 1;i < tree.length;i++) render(that,tree[i],null,null,parent);
           return;
         }
 
@@ -175,22 +200,10 @@ function render(that,tree,args,thatArg,parent){
         nite = new DOMNite(n);
 
         that.listen(that[node].removeChild,[n],that[node]);
-        for(i = 1;i < tree.length;i++) render(nite,tree[i],[nite[node]],nite[node],parent);
+        for(i = 1;i < tree.length;i++) render(nite,tree[i],null,null,parent);
 
         return;
       }
-
-      if(typeof tree.controller == 'function'){
-        child = that.free();
-        child[dataParent] = parent;
-        parent.add(child);
-
-        try{ new tree.controller(child,tree,...(args || [])); }
-        catch(e){ setTimeout(throwError,0,e); }
-        return;
-      }
-
-      if(typeof tree.then == 'function') tree = Yielded.get(tree);
 
       if(Yielded.is(tree)){
         child = that.free();
@@ -214,7 +227,6 @@ function render(that,tree,args,thatArg,parent){
         return;
       }
 
-      that[node][apply](tree,that);
       break;
 
   }
