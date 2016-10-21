@@ -2,6 +2,10 @@ var Detacher = require('detacher'),
     {Yielded} = require('y-resolver'),
     Setter = require('y-setter'),
     {Getter,Hybrid} = Setter,
+
+    map = Symbol(),
+    parent = Symbol(),
+
     std = Object.freeze({
       on: require('./std/on'),
       once: require('./std/once'),
@@ -12,8 +16,10 @@ var Detacher = require('detacher'),
 
 class Nite extends Detacher{
 
-  constructor(){
+  constructor(p){
     super();
+    this[map] = new WeakMap();
+    this[parent] = p;
   }
 
   promise(p){
@@ -75,6 +81,25 @@ class Nite extends Detacher{
 
   glance(){
     return Getter.glance.apply(this,arguments);
+  }
+
+  set(key,value){
+    return this[map].set(key,value);
+  }
+
+  get(key){
+    if(this[map].has(key)) return this[map].get(key);
+    if(this[parent]) return this[parent].get(key);
+  }
+
+  has(key){
+    if(this[map].has(key)) return true;
+    if(this[parent]) return this[parent].has(key);
+    return false;
+  }
+
+  delete(key){
+    return this[map].delete(key);
   }
 
   get std(){

@@ -7,16 +7,13 @@ var walk = require('y-walk'),
     node = Symbol(),
     start = Symbol(),
     end = Symbol(),
-    parent = Symbol(),
-    dataParent = Symbol(),
-    map = Symbol();
+    parent = Symbol();
 
 class DOMNite extends Nite{
 
-  constructor(n){
-    super();
+  constructor(n,p){
+    super(p);
     this[node] = n;
-    this[map] = new WeakMap();
   }
 
   render(tree,args,thatArg){
@@ -30,38 +27,7 @@ class DOMNite extends Nite{
   }
 
   free(){
-    var document = this[node].ownerDocument,
-        s = document.createTextNode(''),
-        e = document.createTextNode(''),
-        ret;
-
-    ret = new Child(this[node],s,e,this);
-
-    this[node].insertBefore(s,this[end]);
-    this[node].insertBefore(e,this[end]);
-    ret.listen(this[node].removeChild,[s],this[node]);
-    ret.listen(this[node].removeChild,[e],this[node]);
-
-    return ret;
-  }
-
-  set(key,value){
-    return this[map].set(key,value);
-  }
-
-  get(key){
-    if(this[map].has(key)) return this[map].get(key);
-    if(this[dataParent]) return this[dataParent].get(key);
-  }
-
-  has(key){
-    if(this[map].has(key)) return true;
-    if(this[dataParent]) return this[dataParent].has(key);
-    return false;
-  }
-
-  delete(key){
-    return this[map].delete(key);
+    return getChild(this,this);
   }
 
   get node(){
@@ -72,13 +38,11 @@ class DOMNite extends Nite{
 
 class Child extends DOMNite{
 
-  constructor(n,s,e,p){
-    super();
-    this[node] = n;
+  constructor(n,s,e,p,dp){
+    super(n,dp);
     this[start] = s;
     this[end] = e;
     this[parent] = p;
-    this[dataParent] = p;
   }
 
   after(){
@@ -154,8 +118,7 @@ function render(that,tree,args,thatArg,parent){
     case 'object':
 
       if(typeof tree.controller == 'function'){
-        child = that.free();
-        child[dataParent] = parent;
+        child = getChild(that,parent);
         parent.add(child);
 
         try{ new tree.controller(child,tree,...(args || [])); }
@@ -206,8 +169,7 @@ function render(that,tree,args,thatArg,parent){
       }
 
       if(Yielded.is(tree)){
-        child = that.free();
-        child[dataParent] = parent;
+        child = getChild(that,parent);
         parent.add(child);
 
         tree.listen(renderYd,[child,args,thatArg]);
@@ -216,8 +178,7 @@ function render(that,tree,args,thatArg,parent){
 
       if(Getter.is(tree)){
 
-        child = that.free();
-        child[dataParent] = parent;
+        child = getChild(that,parent);
         parent.add(child);
 
         child.add(
@@ -247,6 +208,22 @@ function gWatcher(v,ov,d,parent,args,thatArg,ctx){
 
 function throwError(e){
   throw e;
+}
+
+function getChild(parent,dataParent){
+  var document = parent[node].ownerDocument,
+      s = document.createTextNode(''),
+      e = document.createTextNode(''),
+      ret;
+
+  ret = new Child(parent[node],s,e,parent,dataParent);
+
+  parent[node].insertBefore(s,parent[end]);
+  parent[node].insertBefore(e,parent[end]);
+  ret.listen(parent[node].removeChild,[s],parent[node]);
+  ret.listen(parent[node].removeChild,[e],parent[node]);
+
+  return ret;
 }
 
 /*/ exports /*/
