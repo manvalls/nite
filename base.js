@@ -3,23 +3,16 @@ var Detacher = require('detacher'),
     Setter = require('y-setter'),
     {Getter,Hybrid} = Setter,
 
-    map = Symbol(),
-    parent = Symbol(),
+    data = Symbol(),
 
-    std = Object.freeze({
-      on: require('./std/on'),
-      once: require('./std/once'),
-      when: require('./std/when'),
-      animate: require('./std/animate'),
-      forEach: require('./std/forEach')
-    });
+    std;
 
 class Nite extends Detacher{
 
   constructor(p){
     super();
-    this[map] = new WeakMap();
-    this[parent] = p;
+    if(p) this[data] = Object.create(p.data);
+    else this[data] = {};
   }
 
   promise(p){
@@ -46,9 +39,9 @@ class Nite extends Detacher{
   vars(obj,ret){
     var key;
 
-    ret = ret || {};
+    ret = ret || this;
     for(key of Object.keys(obj)){
-      if(obj[key] && obj[key].constructor == Object) ret[key] = this.vars(obj[key]);
+      if(obj[key] && obj[key].constructor == Object) ret[key] = this.vars(obj[key],ret[key] || {});
       else ret[key] = this.var(obj[key]);
     }
 
@@ -83,27 +76,12 @@ class Nite extends Detacher{
     return Getter.glance.apply(this,arguments);
   }
 
-  set(key,value){
-    return this[map].set(key,value);
-  }
-
-  get(key){
-    if(this[map].has(key)) return this[map].get(key);
-    if(this[parent]) return this[parent].get(key);
-  }
-
-  has(key){
-    if(this[map].has(key)) return true;
-    if(this[parent]) return this[parent].has(key);
-    return false;
-  }
-
-  delete(key){
-    return this[map].delete(key);
-  }
-
   get std(){
     return std;
+  }
+
+  get data(){
+    return this[data];
   }
 
 }
@@ -111,3 +89,12 @@ class Nite extends Detacher{
 /*/ exports /*/
 
 module.exports = Nite;
+require('./component');
+
+std = Object.freeze({
+  on: require('./std/on'),
+  once: require('./std/once'),
+  when: require('./std/when'),
+  animate: require('./std/animate'),
+  forEach: require('./std/forEach')
+});

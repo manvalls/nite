@@ -1,17 +1,24 @@
-var walk = require('y-walk'),
+var Nite = require('../main.js'),
+    walk = require('y-walk'),
     wait = require('y-timers/wait');
 
-module.exports = function(elem,start,end){
-  return {elem,start,end,controller};
+module.exports = function(start,end,elem){
+  return [Animate,{start,end},elem];
 };
 
-function controller(nite,ctx){
-  var {elem,start,end} = ctx,
-      child = nite.free(),
-      phase = child.var();
+class Animate extends Nite.Component{
 
-  walk(run,[start || [],end || [],nite,child,phase]);
-  child.render(elem,[phase.getter]);
+  init({start,end},...children){
+    var child = this.free(),
+        phase = child.var();
+
+    start = parseArray(start);
+    end = parseArray(end);
+
+    walk(run,[start,end,this,child,phase]);
+    child.renderAll(children,[phase.getter]);
+  }
+
 }
 
 function* run(start,end,parent,child,phase){
@@ -31,4 +38,10 @@ function* run(start,end,parent,child,phase){
 
   child.detach();
 
+}
+
+function parseArray(arr){
+  arr = arr || [];
+  if(typeof arr == 'string') arr = arr.split(',').map(s => s.trim()).map(s => isNaN(s) ? s : parseInt(s));
+  return arr;
 }

@@ -9,7 +9,7 @@ t('animate',function*(){
       {animate} = nite.std;
 
   nite.render(
-    animate(phase => phase,['starting',0,20,'started'],['ending',0,'ended',20])
+    animate(['starting',0,20,'started'],['ending',0,'ended',20],phase => phase)
   );
 
   assert.strictEqual(d.innerHTML,'starting');

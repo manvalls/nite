@@ -1,4 +1,5 @@
-var chain = Symbol();
+var nite = new ((require('../base')))(),
+    chain = Symbol();
 
 class WhenComponent{
 
@@ -21,12 +22,10 @@ class WhenComponent{
     return this.elseWhen(true,element);
   }
 
-};
+  render(){
+    return nite.transform(this[chain].getters,transform,this[chain]);
+  }
 
-WhenComponent.prototype.controller = function(nite,ctx){
-  nite.render(
-    nite.transform(ctx[chain].getters,transform,ctx[chain])
-  );
 };
 
 function transform(){

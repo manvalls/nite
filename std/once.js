@@ -1,29 +1,34 @@
-var events = require('./utils/events');
+var events = require('./utils/events'),
+    Nite = require('../main');
 
 module.exports = function(event,handler,useCapture){
-  return {controller,event,handler,useCapture,getNode};
+  return [Once,{event,useCapture,getNode},handler];
 };
 
 module.exports.document = function(event,handler,useCapture){
-  return {controller,event,handler,useCapture,getNode: getDocument};
+  return [Once,{event,useCapture,getNode: getDocument},handler];
 };
 
 module.exports.window = function(event,handler,useCapture){
-  return {controller,event,handler,useCapture,getNode: getWindow};
+  return [Once,{event,useCapture,getNode: getWindow},handler];
 };
 
 // Methods
 
-function controller(nite,{event,handler,useCapture,getNode}){
-  var listener = {handleEvent,handler,nite,event,useCapture,getNode};
+class Once extends Nite.Component{
 
-  events.attach(getNode(nite),event,listener,useCapture);
-  nite.listen(events.detach,[getNode(nite),event,listener,useCapture]);
+  init({event,useCapture,getNode},...handler){
+    var listener = {handleEvent,handler,nite: this,event,useCapture,getNode};
+
+    events.attach(getNode(this),event,listener,useCapture);
+    this.listen(events.detach,[getNode(this),event,listener,useCapture]);
+  }
+
 }
 
 function handleEvent(e){
   events.detach(this.getNode(this.nite),this.event,this,this.useCapture);
-  this.nite.render(this.handler,[e],this.nite.node);
+  this.nite.renderAll(this.handler,[e],this.nite.node);
 }
 
 // Node getters

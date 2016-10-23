@@ -4,37 +4,40 @@ var t = require('u-test'),
 
 t('map',function*(){
   var d = document.createElement('div'),
-      nite = Nite(d),
-      {animate} = nite.std,
-      prop = {};
+      nite = Nite(d);
 
-  nite.set(prop);
+  nite.data.prop = true;
+  nite.render(class extends Nite.Component{
 
-  nite.render({
-    controller: function(nite){
-      var prop2 = {};
+    init(){
+      var nite = this;
 
-      assert(nite.has(prop));
-      assert.strictEqual(nite.get(prop),undefined);
+      assert('prop' in this.data);
+      assert.strictEqual(nite.data.prop,true);
 
-      assert(!nite.has(prop2));
-      nite.set(prop2,'foo');
+      assert(!('prop2' in this.data));
+      this.data.prop2 = 'foo';
 
-      nite.render(['div',
+      this.render(['div',
         ['span'],
         ['span',
-          {
-            controller: function(nite2){
-              assert.strictEqual(nite.get(prop2),nite2.get(prop2));
-              assert.strictEqual(nite.get(prop2),'foo');
-              nite.delete(prop2);
-              assert.strictEqual(nite2.get(prop2),undefined);
+          class extends Nite.Component{
+
+            init(){
+              var nite2 = this;
+
+              assert.strictEqual(nite.data.prop2,nite2.data.prop2);
+              assert.strictEqual(nite.data.prop2,'foo');
+              delete nite.data.prop2;
+              assert.strictEqual(nite2.data.prop2,undefined);
             }
+
           }
         ]
       ]);
 
     }
+
   });
 
 });

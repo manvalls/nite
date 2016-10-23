@@ -1,27 +1,32 @@
+var Nite = require('../main');
 
-module.exports = function(getter,callback,options = {}){
-  return {getter,callback,options,controller};
+module.exports = function($,callback,options = {}){
+  return [ForEach,{$,options},callback];
 };
 
-function controller(nite,ctx){
+class ForEach extends Nite.Component{
 
-  if(!nite.isVar(ctx.getter)){
-    ctx.getter = nite.var(ctx.getter);
-    ctx.getter.freeze();
+  init({$,options},...children){
+
+    if(!this.isVar($)){
+      $ = this.var($);
+      $.freeze();
+    }
+
+    this.add(
+      $.watch(
+        watcher,
+        {
+          callback: children,
+          options,
+          children: new Set(),
+          map: new Map(),
+          nite: this
+        }
+      )
+    );
+
   }
-
-  nite.add(
-    ctx.getter.watch(
-      watcher,
-      {
-        callback: ctx.callback,
-        options: ctx.options,
-        children: new Set(),
-        map: new Map(),
-        nite
-      }
-    )
-  );
 
 }
 
@@ -69,7 +74,7 @@ function watcher(newList,ov,d,{
 
         child.index = nite.var();
         child.index.value = i;
-        child.render(callback,[obj,child.index.getter]);
+        child.renderAll(callback,[obj,child.index.getter]);
 
         child.obj = obj;
         map.set(obj,child);
@@ -107,7 +112,7 @@ function watcher(newList,ov,d,{
       child = nite.child();
       child.index = nite.var();
       child.index.value = i;
-      child.render(callback,[obj,child.index.getter]);
+      child.renderAll(callback,[obj,child.index.getter]);
 
       child.obj = obj;
       map.set(obj,child);
