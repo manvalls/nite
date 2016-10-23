@@ -1,7 +1,6 @@
-var Nite = require('nite');
+var Nite = require('nite'),
+    Imgur = require('./component');
 
-Nite(document.body).render({
-  controller: require('./controller'),
-  view: require('./view'),
-  clientID: IMGUR_CLIENT_ID
-});
+Nite(document.body).render(
+  <Imgur clientID={IMGUR_CLIENT_ID}/>
+);

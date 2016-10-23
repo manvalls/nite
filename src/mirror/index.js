@@ -1,6 +1,6 @@
-var Nite = require('nite');
+var Nite = require('nite'),
+    Mirror = require('./component.js');
 
-Nite(document.body).render({
-  controller: require('./controller'),
-  view: require('./view')
-});
+Nite(document.body).render(
+  <Mirror/>
+);

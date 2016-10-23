@@ -5,7 +5,8 @@ require('whatwg-fetch');
 
 /*/ app /*/
 
-var Nite = require('nite');
+var Nite = require('nite'),
+    Main = require('./src/component');
 
 Nite(document.head).render(
   <frag>
@@ -14,7 +15,6 @@ Nite(document.head).render(
   </frag>
 );
 
-Nite(document.body).render({
-  controller: require('./src/controller'),
-  view: require('./src/view')
-});
+Nite(document.body).render(
+  <Main view={require('./src/view')}/>
+);
