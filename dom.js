@@ -170,11 +170,12 @@ function render(that,tree,args,thatArg,parent){
         }
 
         n = document.createElement(tree[0]);
-        that[node].insertBefore(n,that[end]);
         nite = new DOMNite(n);
+        if(tree.length > 1) render(nite,tree[1],null,null,parent);
 
+        that[node].insertBefore(n,that[end]);
         that.listen(that[node].removeChild,[n],that[node]);
-        for(i = 1;i < tree.length;i++) render(nite,tree[i],null,null,parent);
+        for(i = 2;i < tree.length;i++) render(nite,tree[i],null,null,parent);
 
         break;
       }
