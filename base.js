@@ -27,7 +27,10 @@ class Nite extends Detacher{
   }
 
   var(value){
-    var h = new Hybrid(this);
+    var h;
+
+    if(this.isVar(value)) return value;
+    h = new Hybrid(this);
     h.value = value;
     return h;
   }
