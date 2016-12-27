@@ -22,7 +22,7 @@ class WhenComponent{
     return this.elseWhen(true,element);
   }
 
-  render(){
+  init(){
     return nite.transform(this[chain].getters,transform,this[chain]);
   }
 

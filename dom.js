@@ -110,8 +110,8 @@ function render(that,tree,args,thatArg,parent){
 
     case 'function':
 
-      if(tree.hasOwnProperty('render') && typeof tree.render == 'function'){
-        render(that,tree.render(),args,thatArg,parent);
+      if(tree.hasOwnProperty('init') && typeof tree.init == 'function'){
+        render(that,tree.init(...(args || [])),args,thatArg,parent);
         break;
       }
 
@@ -120,8 +120,8 @@ function render(that,tree,args,thatArg,parent){
         parent.add(child);
 
         try{
-          child = new tree(child);
-          child.init(...(args || []));
+          tree = new tree(child);
+          render(child,tree.init(...(args || [])),args,thatArg,child);
         }catch(e){ setTimeout(throwError,0,e); }
 
         break;
@@ -200,8 +200,8 @@ function render(that,tree,args,thatArg,parent){
         break;
       }
 
-      if(typeof tree.render == 'function'){
-        render(that,tree.render(),args,thatArg,parent);
+      if(typeof tree.init == 'function'){
+        render(that,tree.init(...(args || [])),args,thatArg,parent);
         break;
       }
 
