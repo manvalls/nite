@@ -11,7 +11,7 @@ class Form extends Nite.Component{
     });
 
     this.titles = ['Mx.','Mr.','Ms.'];
-    this.render( view(this, this.std) );
+    return view(this, this.std);
 
   }
 

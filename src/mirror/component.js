@@ -5,7 +5,7 @@ class Mirror extends Nite.Component{
 
   init(){
     this.text = this.var();
-    this.render( view(this) );
+    return view(this);
   }
 
   mirror(text){

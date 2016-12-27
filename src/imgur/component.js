@@ -12,7 +12,7 @@ class Imgur extends Nite.Component{
 
     this.clientID = clientID;
     this.query.debounce(300).watch( q => this.search(q) );
-    this.render( view(this, this.std) );
+    return view(this, this.std);
 
   }
 
