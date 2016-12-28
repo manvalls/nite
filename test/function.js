@@ -28,9 +28,14 @@ t('Function',function*(){
 
   d = document.createElement('div');
   nite = Nite(d);
+  
   nite.render([function(one,two,three){
-    return [,one,two,three];
+    var four = this.var();
+    setTimeout(() => four.set(4), 100);
+    return [,one,two,three,four];
   },1,2,3]);
 
   assert.strictEqual(d.innerHTML,'123');
+  yield wait(200);
+  assert.strictEqual(d.innerHTML,'1234');
 });

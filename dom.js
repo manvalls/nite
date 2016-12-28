@@ -127,6 +127,12 @@ function render(that,tree,args,thatArg,parent){
         break;
       }
 
+      if(args && !thatArg){
+        thatArg = getChild(that,parent);
+        parent.add(thatArg);
+        parent = that = thatArg;
+      }
+
       render(
         that,
         walk(tree,args || [that[node]],thatArg || that[node]),
@@ -165,7 +171,7 @@ function render(that,tree,args,thatArg,parent){
         }
 
         if(tree[0] instanceof Object){
-          render(that,tree[0],tree.slice(1),thatArg,parent);
+          render(that,tree[0],tree.slice(1),null,parent);
           break;
         }
 
