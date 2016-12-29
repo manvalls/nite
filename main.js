@@ -9,10 +9,10 @@ var Nite = require('nite'),
     Main = require('./src/component');
 
 Nite(document.head).render(
-  <frag>
+  <jsx>
     <title>Nite</title>
     <meta name="viewport" content="initial-scale=1, maximum-scale=1" />
-  </frag>
+  </jsx>
 );
 
 Nite(document.body).render(

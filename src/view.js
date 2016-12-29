@@ -1,7 +1,7 @@
 
 module.exports = (ctrl, { forEach, when }) =>
 
-<frag scrollTop={ctrl.scrollTop}>
+<jsx scrollTop={ctrl.scrollTop}>
 
   {{
     style: {
@@ -36,7 +36,7 @@ module.exports = (ctrl, { forEach, when }) =>
   {
     forEach(ctrl.samples,(sample, i) =>
 
-      <frag>
+      <jsx>
         <div>
 
           {{
@@ -106,9 +106,9 @@ module.exports = (ctrl, { forEach, when }) =>
 
         { when(i.lt(ctrl.samples.length - 1),<hr style={{width: '90%'}}/>) }
 
-      </frag>
+      </jsx>
 
     )
   }
 
-</frag>
+</jsx>
