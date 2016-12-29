@@ -1,20 +1,23 @@
-var Nite = require('nite'),
-    view = require('./view');
+module.exports = function(){
+  var titles = ['Mx.','Mr.','Ms.'],
+      title = this.var('Mx.'),
+      name = this.var(),
+      {forEach} = this.std;
 
-class Form extends Nite.Component{
+  return <div>
+    <form onsubmit={e => e.preventDefault()} user_title={{value: title}}>
 
-  init(){
+      { forEach(titles, option =>
+        <label>
+          <input type="radio" name="user_title" value={option} /> {option}
+        </label>
+      ) }
 
-    this.vars({
-      title: 'Mx.',
-      name: ''
-    });
+      <br/><br/>
+      <input type="text" value={name} placeholder="Name" />
 
-    this.titles = ['Mx.','Mr.','Ms.'];
-    return view(this, this.std);
-
-  }
-
-}
-
-module.exports = Form;
+    </form>
+    <hr/>
+    Hi {title} {name}!
+  </div>;
+};

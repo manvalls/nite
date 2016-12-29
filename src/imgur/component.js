@@ -1,44 +1,71 @@
-var Nite = require('nite'),
-    view = require('./view.js');
+module.exports = function( {clientID} ){
+    var query = this.var(),
+        request = this.var(),
+        {when} = this.std;
 
-class Imgur extends Nite.Component{
+    // Listen for changes at the query NVar
 
-  init({clientID}){
+    query.debounce(300).watch(query => {
+      var url;
 
-    this.vars({
-      query: '',
-      request: null
+      if(!query){
+        // Ignore previous request
+        request.value = null;
+        return;
+      }
+
+      query = encodeURIComponent(query);
+      url = `https://api.imgur.com/3/gallery/search/top/0?q=${query}`;
+
+      request.value = this.promise(
+
+        // Launch the request
+
+        fetch(url,{
+          headers: new Headers({
+            Authorization: `Client-ID ${clientID}`
+          })
+        }).then(function(response){
+          return response.json();
+        }).then(function(data){
+          var result;
+
+          if(!data.success) throw new Error();
+
+          // Return the first non-album result
+          for(result of data.data) if(!result.is_album) return result.link;
+          
+        })
+
+      );
+
     });
 
-    this.clientID = clientID;
-    this.query.debounce(300).watch( q => this.search(q) );
-    return view(this, this.std);
+    // Render the UI
 
-  }
+    return <div style={{textAlign: 'center'}}>
+      <input placeholder="Search in imgur" value={query}/>
+      <hr/>
+      <div>
 
-  search(query){
-    var promise,url;
+        { request.to(request =>
 
-    if(!query) return this.request.set(null);
-    query = encodeURIComponent(query);
-    url = `https://api.imgur.com/3/gallery/search/top/0?q=${query}`;
+          when(request, () =>
 
-    promise = fetch(url,{
-      headers: new Headers({
-        Authorization: `Client-ID ${this.clientID}`
-      })
-    })
+            when(request.success,
 
-    .then(response => response.json())
-    .then(data => {
-      var result;
-      if(!data.success) throw new Error();
-      for(result of data.data) if(!result.is_album) return result.link;
-    });
+              when(request.result,
+                <img src={request.result} style={{maxWidth: '180px'}}/>
+              ).else('Sorry, no results!')
 
-    this.request.value = this.promise(promise);
-  }
+            ).elseWhen(request.failure,
+              'There was an error!'
+            ).else('Loading...')
 
-}
+          ).else('Type something!')
 
-module.exports = Imgur;
+        ) }
+
+      </div>
+    </div>;
+};

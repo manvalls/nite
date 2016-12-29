@@ -15,33 +15,30 @@ class Main extends Nite.Component{
       {
         result: <Mirror/>,
         code: {
-          selected: this.var('view.js'),
+          selected: this.var('component.js'),
           files: {
-            'view.js': require('fs').readFileSync(__dirname + '/mirror/view.html','utf8'),
             'component.js': require('fs').readFileSync(__dirname + '/mirror/component.html','utf8'),
             'index.js': require('fs').readFileSync(__dirname + '/mirror/index.html','utf8')
           }
         }
       },
       {
-        result: <Imgur clientID="e067354667a0505"/>,
+        result: <Form/>,
         code: {
-          selected: this.var('view.js'),
+          selected: this.var('component.js'),
           files: {
-            'view.js': require('fs').readFileSync(__dirname + '/imgur/view.html','utf8'),
-            'component.js': require('fs').readFileSync(__dirname + '/imgur/component.html','utf8'),
-            'index.js': require('fs').readFileSync(__dirname + '/imgur/index.html','utf8')
+            'component.js': require('fs').readFileSync(__dirname + '/form/component.html','utf8'),
+            'index.js': require('fs').readFileSync(__dirname + '/form/index.html','utf8')
           }
         }
       },
       {
-        result: <Form/>,
+        result: <Imgur clientID="e067354667a0505"/>,
         code: {
-          selected: this.var('view.js'),
+          selected: this.var('component.js'),
           files: {
-            'view.js': require('fs').readFileSync(__dirname + '/form/view.html','utf8'),
-            'component.js': require('fs').readFileSync(__dirname + '/form/component.html','utf8'),
-            'index.js': require('fs').readFileSync(__dirname + '/form/index.html','utf8')
+            'component.js': require('fs').readFileSync(__dirname + '/imgur/component.html','utf8'),
+            'index.js': require('fs').readFileSync(__dirname + '/imgur/index.html','utf8')
           }
         }
       }

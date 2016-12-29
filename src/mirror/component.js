@@ -1,17 +1,15 @@
-var Nite = require('nite'),
-    view = require('./view.js');
+module.exports = function(){
+  var text = this.var();
 
-class Mirror extends Nite.Component{
-
-  init(){
-    this.text = this.var();
-    return view(this);
-  }
-
-  mirror(text){
+  function mirror(text){
     return text.split('').reverse().join('');
   }
 
-}
-
-module.exports = Mirror;
+  return <div style={{textAlign: 'center'}}>
+    <input placeholder="Type something" value={text}/>
+    <hr/>
+    <div>
+      {text} | { text.to(mirror) }
+    </div>
+  </div>;
+};
