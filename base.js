@@ -87,6 +87,10 @@ class Nite extends Detacher{
     return this[data];
   }
 
+  get self(){
+    return this;
+  }
+
 }
 
 /*/ exports /*/

@@ -17,6 +17,7 @@ t('child(), before() and after()',function(){
   c2.render(2);
   c3.render(3);
 
+  assert.strictEqual(c1,c1.self);
   assert.strictEqual(s.innerHTML,'123');
   c2.detach();
   assert.strictEqual(s.innerHTML,'13');
