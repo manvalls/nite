@@ -3,7 +3,7 @@ var Detacher = require('detacher'),
     Setter = require('y-setter'),
     {Getter,Hybrid} = Setter,
 
-    data = Symbol(),
+    scope = Symbol(),
 
     std;
 
@@ -11,8 +11,8 @@ class Nite extends Detacher{
 
   constructor(p){
     super();
-    if(p) this[data] = Object.create(p.data);
-    else this[data] = {};
+    if(p) this[scope] = Object.create(p.scope);
+    else this[scope] = {};
   }
 
   promise(p){
@@ -35,8 +35,8 @@ class Nite extends Detacher{
     return h;
   }
 
-  isVar(data){
-    return Getter.is(data);
+  isVar(scope){
+    return Getter.is(scope);
   }
 
   vars(obj,ret){
@@ -83,8 +83,8 @@ class Nite extends Detacher{
     return std;
   }
 
-  get data(){
-    return this[data];
+  get scope(){
+    return this[scope];
   }
 
   get self(){

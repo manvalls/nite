@@ -38,8 +38,8 @@ exports.Component = class extends Nite{
     return this[parent].node;
   }
 
-  get data(){
-    return this[parent].data;
+  get scope(){
+    return this[parent].scope;
   }
 
 };

@@ -6,17 +6,17 @@ t('map',function*(){
   var d = document.createElement('div'),
       nite = Nite(d);
 
-  nite.data.prop = true;
+  nite.scope.prop = true;
   nite.render(class extends Nite.Component{
 
     init(){
       var nite = this;
 
-      assert('prop' in this.data);
-      assert.strictEqual(nite.data.prop,true);
+      assert('prop' in this.scope);
+      assert.strictEqual(nite.scope.prop,true);
 
-      assert(!('prop2' in this.data));
-      this.data.prop2 = 'foo';
+      assert(!('prop2' in this.scope));
+      this.scope.prop2 = 'foo';
 
       this.render(['div',
         ['span'],
@@ -26,10 +26,10 @@ t('map',function*(){
             init(){
               var nite2 = this;
 
-              assert.strictEqual(nite.data.prop2,nite2.data.prop2);
-              assert.strictEqual(nite.data.prop2,'foo');
-              delete nite.data.prop2;
-              assert.strictEqual(nite2.data.prop2,undefined);
+              assert.strictEqual(nite.scope.prop2,nite2.scope.prop2);
+              assert.strictEqual(nite.scope.prop2,'foo');
+              delete nite.scope.prop2;
+              assert.strictEqual(nite2.scope.prop2,undefined);
             }
 
           }

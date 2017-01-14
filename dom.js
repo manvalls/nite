@@ -135,7 +135,7 @@ function render(that,tree,args,thatArg,parent){
 
       render(
         that,
-        walk(tree,args || [that[node]],thatArg || that[node]),
+        walk(tree,args || [that.scope],thatArg || that[node]),
         args,
         thatArg,
         parent
