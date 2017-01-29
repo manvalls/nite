@@ -7,10 +7,6 @@ class Main extends Nite.Component{
 
   init({view}){
 
-    this.vars({
-      scrollTop: 0
-    });
-
     this.samples = [
       {
         result: <Mirror/>,

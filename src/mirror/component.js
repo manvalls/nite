@@ -9,7 +9,7 @@ module.exports = function(){
     <input placeholder="Type something" value={text}/>
     <hr/>
     <div>
-      {text} | { text.to(mirror) }
+      {text} | { text.map(mirror) }
     </div>
   </div>;
 };
