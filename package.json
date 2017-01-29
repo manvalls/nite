@@ -6,13 +6,13 @@
   "dependencies": {
     "detacher": "^2.0.7",
     "u-proto": "^7.1.4",
-    "y-resolver": "^9.7.1",
-    "y-setter": "^6.16.1",
-    "y-walk": "^10.0.7"
+    "y-resolver": "^9.8.2",
+    "y-setter": "^7.3.3",
+    "y-walk": "^10.0.7",
+    "y-timers": "^1.1.6"
   },
   "devDependencies": {
-    "u-test": "^3.8.10",
-    "y-timers": "^1.1.6"
+    "u-test": "^3.8.11"
   },
   "scripts": {
     "test": "u-test"

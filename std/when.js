@@ -23,7 +23,7 @@ class WhenComponent{
   }
 
   init(){
-    return nite.transform(this[chain].getters,transform,this[chain]);
+    return nite.std.model.map(this[chain].getters,transform,this[chain]);
   }
 
 };

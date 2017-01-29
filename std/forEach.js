@@ -8,7 +8,7 @@ class ForEach extends Nite.Component{
 
   init({$,options},...children){
 
-    if(!this.isVar($)){
+    if(!this.std.model.isVar($)){
       $ = this.var($);
       $.freeze();
     }
