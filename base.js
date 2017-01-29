@@ -36,7 +36,7 @@ class Nite extends Detacher{
     }
 
     ret = {};
-    for(key of Object.keys(key)) ret[key] = this.var(obj[key]);
+    for(key of Object.keys(obj)) ret[key] = this.var(obj[key]);
     return ret;
   }
 
