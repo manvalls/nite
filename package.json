@@ -1,6 +1,6 @@
 {
   "name": "nite",
-  "version": "7.0.4",
+  "version": "7.0.5",
   "description": "A different take on MVC for the web",
   "main": "main.js",
   "dependencies": {
