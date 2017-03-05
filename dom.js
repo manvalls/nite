@@ -146,7 +146,7 @@ function render(that,tree,args,thatArg,parent){
     case 'object':
 
       if(tree.constructor == Object){
-        that[node][apply](tree,that);
+        that[node][apply](tree,parent);
         break;
       }
 
