@@ -161,7 +161,7 @@ function render(that,tree,args,thatArg,parent){
               usedModifiers.add(key);
 
               try{
-                parent.modifiers[key](tree);
+                parent.modifiers[key](tree, parent.scope);
               }catch(e){
                 console.error(`Modifier ${key} threw an error:`, e);
               }
