@@ -8,3 +8,5 @@ require('./when');
 require('./forEach');
 require('./animate');
 require('./map');
+require('./directives');
+require('./modifiers');

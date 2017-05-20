@@ -146,7 +146,52 @@ function render(that,tree,args,thatArg,parent){
     case 'object':
 
       if(tree.constructor == Object){
+        let usedModifiers = new Set(),
+            usedDirectives = new Set(),
+            modifierFound, directiveFound;
+
+        do{
+
+          modifierFound = false;
+          for(let key of Object.keys(tree)){
+
+            if((key in parent.modifiers) && !usedModifiers.has(key)){
+
+              modifierFound = true;
+              usedModifiers.add(key);
+
+              try{
+                parent.modifiers[key](tree);
+              }catch(e){
+                console.error(`Modifier ${key} threw an error:`, e);
+              }
+
+            }
+
+          }
+
+        }while(modifierFound);
+
+        do{
+
+          directiveFound = false;
+          for(let key of Object.keys(tree)){
+
+            if((key in parent.directives) && !usedDirectives.has(key)){
+
+              directiveFound = true;
+              usedDirectives.add(key);
+
+              render(that, parent.directives[key],[tree],null,parent);
+
+            }
+
+          }
+
+        }while(directiveFound);
+
         that[node][apply](tree,parent);
+
         break;
       }
 

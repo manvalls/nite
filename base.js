@@ -4,6 +4,8 @@ var Detacher = require('detacher'),
     {Getter,Hybrid} = Setter,
 
     scope = Symbol(),
+    modifiers = Symbol(),
+    directives = Symbol(),
 
     std;
 
@@ -11,8 +13,16 @@ class Nite extends Detacher{
 
   constructor(p){
     super();
-    if(p) this[scope] = Object.create(p.scope);
-    else this[scope] = {};
+
+    if(p){
+      this[scope] = Object.create(p.scope);
+      this[modifiers] = Object.create(p.modifiers);
+      this[directives] = Object.create(p.directives);
+    }else{
+      this[scope] = Object.create(null);
+      this[modifiers] = Object.create(null);
+      this[directives] = Object.create(null);
+    }
   }
 
   var(value){
@@ -46,6 +56,14 @@ class Nite extends Detacher{
 
   get scope(){
     return this[scope];
+  }
+
+  get modifiers(){
+    return this[modifiers];
+  }
+
+  get directives(){
+    return this[directives];
   }
 
   get self(){
