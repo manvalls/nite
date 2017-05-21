@@ -147,8 +147,8 @@ function render(that,tree,args,thatArg,parent){
 
       if(tree.constructor == Object){
         let usedModifiers = new Set(),
-            usedDirectives = new Set(),
-            modifierFound, directiveFound;
+            directives = [],
+            modifierFound;
 
         do{
 
@@ -172,25 +172,20 @@ function render(that,tree,args,thatArg,parent){
 
         }while(modifierFound);
 
-        that[node][apply](tree,parent);
+        for(let key of Object.keys(tree)){
 
-        do{
-
-          directiveFound = false;
-          for(let key of Object.keys(tree)){
-
-            if((key in parent.directives) && !usedDirectives.has(key)){
-
-              directiveFound = true;
-              usedDirectives.add(key);
-
-              render(that,parent.directives[key],[tree],null,parent);
-
-            }
-
+          if((key in parent.directives)){
+            directives.push([parent.directives[key], tree[key]]);
+            delete tree[key];
           }
 
-        }while(directiveFound);
+        }
+
+        that[node][apply](tree,parent);
+
+        for(let [directive, arg] of directives){
+          render(that,directive,[arg],null,parent);
+        }
 
         break;
       }

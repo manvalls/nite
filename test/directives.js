@@ -7,7 +7,7 @@ t('directives',function*(){
       nite = Nite(d),
       value;
 
-  nite.directives.foo = function({foo}){
+  nite.directives.foo = function(foo){
     this.node.foo = foo;
   };
 
