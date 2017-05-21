@@ -172,6 +172,8 @@ function render(that,tree,args,thatArg,parent){
 
         }while(modifierFound);
 
+        that[node][apply](tree,parent);
+
         do{
 
           directiveFound = false;
@@ -189,8 +191,6 @@ function render(that,tree,args,thatArg,parent){
           }
 
         }while(directiveFound);
-
-        that[node][apply](tree,parent);
 
         break;
       }
