@@ -127,7 +127,7 @@ function render(that,tree,args,thatArg,parent){
         break;
       }
 
-      if(args && !thatArg){
+      if(tree.prototype && args && !thatArg){
         thatArg = getChild(that,parent);
         parent.add(thatArg);
         parent = that = thatArg;
@@ -135,7 +135,7 @@ function render(that,tree,args,thatArg,parent){
 
       render(
         that,
-        walk(tree,args || [parent.scope],thatArg || that[node]),
+        walk(tree,args || [parent.scope, that[node]],thatArg || that[node]),
         args,
         thatArg,
         parent
@@ -161,7 +161,7 @@ function render(that,tree,args,thatArg,parent){
               usedModifiers.add(key);
 
               try{
-                parent.modifiers[key](tree, parent.scope);
+                parent.modifiers[key](tree,parent.scope,that[node]);
               }catch(e){
                 console.error(`Modifier ${key} threw an error:`, e);
               }
@@ -182,7 +182,7 @@ function render(that,tree,args,thatArg,parent){
               directiveFound = true;
               usedDirectives.add(key);
 
-              render(that, parent.directives[key],[tree],null,parent);
+              render(that,parent.directives[key],[tree],null,parent);
 
             }
 
