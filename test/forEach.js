@@ -57,6 +57,13 @@ t('forEach',function(){
     nite.render(nite.std.forEach(test,n => n));
     assert.strictEqual(d.innerHTML,'123');
 
+    nite.detach();
+    nite = Nite(d);
+    test = nite.const([1,2,3]);
+
+    nite.render(nite.std.forEach(test,n => n));
+    assert.strictEqual(d.innerHTML,'123');
+
   });
 
   t('No reordering',function(){

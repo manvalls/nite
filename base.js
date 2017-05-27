@@ -34,6 +34,16 @@ class Nite extends Detacher{
     return h;
   }
 
+  const(value){
+    var s = new Setter();
+
+    if(Getter.is(value)) s.value = Getter.value;
+    else s.value = value
+    s.freeze();
+
+    return s.getter;
+  }
+
   vars(obj){
     var ret,key,i;
 
