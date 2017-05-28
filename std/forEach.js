@@ -86,7 +86,7 @@ function watcher(newList,ov,d,{
 
         child.index = nite.var();
         child.index.value = i;
-        child.renderAll(callback,[item,child.index.getter]);
+        child.renderAll(callback,[item,child.index.getter],child.node);
 
         child.key = key;
         map.set(key,child);
@@ -124,7 +124,7 @@ function watcher(newList,ov,d,{
       child = nite.child();
       child.index = nite.var();
       child.index.value = i;
-      child.renderAll(callback,[item,child.index.getter]);
+      child.renderAll(callback,[item,child.index.getter],child.node);
 
       child.key = key;
       map.set(key,child);
