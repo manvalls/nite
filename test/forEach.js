@@ -11,8 +11,10 @@ t('forEach',function(){
     nite = Nite(d);
     test = nite.var([]);
 
+    nite.components.foo = (...children) => ['span', ...children];
+
     nite.render([,
-      'foo',nite.std.forEach(test,(n,index) => ['span',`${n},`,index]),'bar'
+      'foo',nite.std.forEach(test,(n,index) => ['foo',`${n},`,index]),'bar'
     ]);
 
     assert.strictEqual(d.innerHTML,'foobar');

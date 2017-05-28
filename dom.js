@@ -7,7 +7,8 @@ var walk = require('y-walk'),
     node = Symbol(),
     start = Symbol(),
     end = Symbol(),
-    parent = Symbol();
+    parent = Symbol(),
+    dataParent = Symbol();
 
 class DOMNite extends Nite{
 
@@ -48,6 +49,7 @@ class Child extends DOMNite{
     this[start] = s;
     this[end] = e;
     this[parent] = p;
+    this[dataParent] = dp;
   }
 
   after(){
@@ -56,7 +58,7 @@ class Child extends DOMNite{
         e = document.createTextNode(''),
         ret;
 
-    ret = new Child(this[node],s,e,this[parent]);
+    ret = new Child(this[node],s,e,this[parent],this[dataParent]);
 
     if(!this[parent].done){
       this[node].insertBefore(e,this[end].nextSibling);
@@ -75,7 +77,7 @@ class Child extends DOMNite{
         e = document.createTextNode(''),
         ret;
 
-    ret = new Child(this[node],s,e,this[parent]);
+    ret = new Child(this[node],s,e,this[parent],this[dataParent]);
 
     if(!this[parent].done){
       this[node].insertBefore(s,this[start]);
@@ -93,7 +95,7 @@ class Child extends DOMNite{
 // Render
 
 function render(that,tree,args,thatArg,parent){
-  var document,i,n,nite,child;
+  var document,i,n,nite,child,tag;
 
   if(that.done || tree === null) return;
   document = that[node].ownerDocument;
@@ -205,17 +207,22 @@ function render(that,tree,args,thatArg,parent){
 
       if(tree instanceof Array){
 
-        if(tree[0] == null){
+        tag = tree[0];
+        if(typeof tag == 'string' && tag in parent.components){
+          tag = parent.components[tag];
+        }
+
+        if(tag == null){
           for(i = 1;i < tree.length;i++) render(that,tree[i],null,null,parent);
           break;
         }
 
-        if(tree[0] instanceof Object){
-          render(that,tree[0],tree.slice(1),null,parent);
+        if(tag instanceof Object){
+          render(that,tag,tree.slice(1),null,parent);
           break;
         }
 
-        n = document.createElement(tree[0]);
+        n = document.createElement(tag);
         nite = new DOMNite(n);
         if(tree.length > 1) render(nite,tree[1],null,null,parent);
 
