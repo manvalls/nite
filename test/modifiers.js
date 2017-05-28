@@ -7,9 +7,15 @@ t('modifiers',function*(){
       nite = Nite(d),
       value;
 
-  nite.modifiers.foo = function(props){
-    props.style = {color: props.foo};
-  };
+  nite.plugin({
+
+    plug(nite){
+      nite.modifiers.foo = function(props){
+        props.style = {color: props.foo};
+      };
+    }
+
+  });
 
   nite.render({
     foo: 'black'

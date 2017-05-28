@@ -60,6 +60,14 @@ class Nite extends Detacher{
     return ret;
   }
 
+  plugin(...plugins){
+    
+    for(let plugin of plugins){
+      plugin.plug(this);
+    }
+
+  }
+
   get std(){
     return std;
   }
