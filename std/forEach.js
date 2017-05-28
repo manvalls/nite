@@ -40,10 +40,22 @@ function watcher(newList,ov,d,{
   var i = 0,
       ctx = arguments[3],
       newChildren = new Set(),
-      obj,child,increment,it,oldChild,temp;
+      itemMap = new Map(),
+      getKey = options.key || (item => item),
+      item,child,increment,it,key,oldChild,temp;
 
-  try{ newList = new Set(newList || []); }
-  catch(e){ newList = new Set(); }
+  try{
+
+    for(let item of (newList || [])){
+
+      try{
+        key = getKey(item);
+        itemMap.set(key, item);
+      }catch(e){ }
+
+    }
+
+  }catch(e){ }
 
   // Ordered creation
 
@@ -52,21 +64,21 @@ function watcher(newList,ov,d,{
     it = children.values();
     increment = true;
 
-    for(obj of newList){
+    for([key, item] of itemMap.entries()){
 
       if(increment) oldChild = it.next();
 
     	if(oldChild.done) child = nite.child();
-      else if(oldChild.value.obj !== obj) child = oldChild.value.before();
+      else if(oldChild.value.key !== key) child = oldChild.value.before();
       else increment = true;
 
       if(child){
 
-        if(map.has(obj)){
+        if(map.has(key)){
 
           // Partial cleanup
 
-          temp = map.get(obj);
+          temp = map.get(key);
           children.delete(temp);
           temp.detach();
 
@@ -74,10 +86,10 @@ function watcher(newList,ov,d,{
 
         child.index = nite.var();
         child.index.value = i;
-        child.renderAll(callback,[obj,child.index.getter]);
+        child.renderAll(callback,[item,child.index.getter]);
 
-        child.obj = obj;
-        map.set(obj,child);
+        child.key = key;
+        map.set(key,child);
         newChildren.add(child);
 
         increment = false;
@@ -99,11 +111,11 @@ function watcher(newList,ov,d,{
 
   // Unordered creation
 
-  else for(obj of newList){
+  else for([key, item] of itemMap.entries()){
 
-  	if(map.has(obj)){
+  	if(map.has(key)){
 
-      child = map.get(obj);
+      child = map.get(key);
       child.index.value = i;
       newChildren.add(child);
 
@@ -112,10 +124,10 @@ function watcher(newList,ov,d,{
       child = nite.child();
       child.index = nite.var();
       child.index.value = i;
-      child.renderAll(callback,[obj,child.index.getter]);
+      child.renderAll(callback,[item,child.index.getter]);
 
-      child.obj = obj;
-      map.set(obj,child);
+      child.key = key;
+      map.set(key,child);
       newChildren.add(child);
 
   	}
@@ -129,7 +141,7 @@ function watcher(newList,ov,d,{
   for(child of children){
 
   	if(!newChildren.has(child)){
-  	  if(map.get(child.obj) == child) map.delete(child.obj);
+  	  if(map.get(child.key) == child) map.delete(child.key);
       child.detach();
   	}
 

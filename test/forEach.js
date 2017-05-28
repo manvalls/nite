@@ -66,6 +66,31 @@ t('forEach',function(){
     nite.render(nite.std.forEach(test,n => n));
     assert.strictEqual(d.innerHTML,'123');
 
+    nite.detach();
+    nite = Nite(d);
+    test = nite.var([{
+      key: 'foo',
+      value: 'bar'
+    }, {
+      key: 'foo',
+      value: 'baz'
+    }]);
+
+    nite.render(nite.std.forEach(test,obj => obj.value,{key: obj => obj.key}));
+    assert.strictEqual(d.innerHTML,'baz');
+
+    test.value[0].key = 'fo';
+    test.update();
+    assert.strictEqual(d.innerHTML,'barbaz');
+
+    test.value.push({
+      key: 'foo',
+      value: 'foo'
+    });
+
+    test.update();
+    assert.strictEqual(d.innerHTML,'barbaz');
+
   });
 
   t('No reordering',function(){
