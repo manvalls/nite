@@ -222,6 +222,21 @@ function render(that,tree,args,thatArg,parent){
           break;
         }
 
+        if(tree[1] && tree[1].constructor == Object){
+          let obj = tree[1];
+
+          for(let key of Object.keys(obj)){
+            if(key in parent.wrappers){
+              let wrapper = parent.wrappers[key],
+                  arg = obj[key];
+
+              delete obj[key];
+              return render(that,wrapper,[arg,tree],null,parent);
+            }
+          }
+
+        }
+
         n = document.createElement(tag);
         nite = new DOMNite(n);
         if(tree.length > 1) render(nite,tree[1],null,null,parent);

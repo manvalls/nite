@@ -10,3 +10,4 @@ require('./animate');
 require('./map');
 require('./directives');
 require('./modifiers');
+require('./wrappers');

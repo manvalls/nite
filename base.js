@@ -7,6 +7,7 @@ var Detacher = require('detacher'),
     modifiers = Symbol(),
     directives = Symbol(),
     components = Symbol(),
+    wrappers = Symbol(),
 
     std;
 
@@ -20,11 +21,13 @@ class Nite extends Detacher{
       this[modifiers] = Object.create(p.modifiers);
       this[directives] = Object.create(p.directives);
       this[components] = Object.create(p.components);
+      this[wrappers] = Object.create(p.wrappers);
     }else{
       this[scope] = Object.create(null);
       this[modifiers] = Object.create(null);
       this[directives] = Object.create(null);
       this[components] = Object.create(null);
+      this[wrappers] = Object.create(null);
     }
   }
 
@@ -89,6 +92,10 @@ class Nite extends Detacher{
 
   get components(){
     return this[components];
+  }
+
+  get wrappers(){
+    return this[wrappers];
   }
 
   get self(){
