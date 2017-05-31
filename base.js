@@ -116,6 +116,7 @@ std = Object.freeze({
   animate: require('./std/animate'),
   forEach: require('./std/forEach'),
   model: require('./std/model'),
+  promises: require('./std/promises'),
   flow: require('./std/flow'),
   timers: require('y-timers')
 });
