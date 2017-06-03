@@ -207,21 +207,6 @@ function render(that,tree,args,thatArg,parent){
 
       if(tree instanceof Array){
 
-        tag = tree[0];
-        if(typeof tag == 'string' && tag in parent.components){
-          tag = parent.components[tag];
-        }
-
-        if(tag == null){
-          for(i = 1;i < tree.length;i++) render(that,tree[i],null,null,parent);
-          break;
-        }
-
-        if(tag instanceof Object){
-          render(that,tag,tree.slice(1),null,parent);
-          break;
-        }
-
         if(tree[1] && tree[1].constructor == Object){
           let obj = tree[1];
 
@@ -235,6 +220,21 @@ function render(that,tree,args,thatArg,parent){
             }
           }
 
+        }
+
+        tag = tree[0];
+        if(typeof tag == 'string' && tag in parent.components){
+          tag = parent.components[tag];
+        }
+
+        if(tag == null){
+          for(i = 1;i < tree.length;i++) render(that,tree[i],null,null,parent);
+          break;
+        }
+
+        if(tag instanceof Object){
+          render(that,tag,tree.slice(1),null,parent);
+          break;
         }
 
         n = document.createElement(tag);
