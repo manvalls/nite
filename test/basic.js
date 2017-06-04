@@ -8,7 +8,7 @@ t('Element creation and appending',function(){
   e = [,
     {style: {color: 'black'}},
     'Hello world!',
-    ['div',
+    [['div'],
       {style: {color: 'green'}},
       'Hi again!'
     ],

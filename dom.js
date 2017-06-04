@@ -232,6 +232,11 @@ function render(that,tree,args,thatArg,parent){
           break;
         }
 
+        if(tag instanceof Array){
+          render(that,tag.concat(tree.slice(1)),null,null,parent);
+          break;
+        }
+
         if(tag instanceof Object){
           render(that,tag,tree.slice(1),null,parent);
           break;
