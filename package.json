@@ -7,7 +7,7 @@
     "detacher": "^2.0.10",
     "u-proto": "^7.1.6",
     "y-resolver": "^10.1.6",
-    "y-setter": "^7.10.1",
+    "y-setter": "^7.10.2",
     "y-walk": "^10.0.9",
     "y-timers": "^1.1.10"
   },
