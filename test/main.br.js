@@ -11,3 +11,4 @@ require('./map');
 require('./directives');
 require('./modifiers');
 require('./wrappers');
+require('./addons');
