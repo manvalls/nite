@@ -4,7 +4,7 @@ module.exports = function(){
 
   if(arguments.length){
     let DOMNite = require('./dom.js');
-    return new DOMNite(arguments[0]);
+    return new DOMNite(...arguments);
   }
 
   return new Nite();
