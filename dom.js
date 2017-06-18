@@ -178,6 +178,7 @@ function render(that,tree,args,thatArg,parent){
 
           if((key in parent.directives)){
             directives.push([parent.directives[key], tree[key]]);
+            tree = Object.assign({}, tree);
             delete tree[key];
           }
 
@@ -215,7 +216,9 @@ function render(that,tree,args,thatArg,parent){
               let wrapper = parent.wrappers[key],
                   arg = obj[key];
 
+              obj = Object.assign({}, obj);
               delete obj[key];
+
               return render(that,wrapper,[arg,tree],null,parent);
             }
           }
