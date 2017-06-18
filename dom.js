@@ -219,6 +219,9 @@ function render(that,tree,args,thatArg,parent){
               obj = Object.assign({}, obj);
               delete obj[key];
 
+              tree = tree.slice();
+              tree[1] = obj;
+
               return render(that,wrapper,[arg,tree],null,parent);
             }
           }
